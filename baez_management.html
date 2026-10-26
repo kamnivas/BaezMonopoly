@@ -33,6 +33,7 @@
         if (combat_won === false){
             let bool_rand = bool_lst[Math.floor(Math.random() * bool_lst.length)];
             if (bool_rand === 'Game Over'){
+                game_over = true;
                 alert('Game Over!');
             } else {
                 baez_bucks -= num_lst2[Math.floor(Math.random() * num_lst2.length)];
