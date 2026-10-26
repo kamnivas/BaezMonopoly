@@ -6,6 +6,14 @@
     <title>Document</title>
 </head>
 <body>
+    <p id="show_bucks"></p>
+    <input type="button"
+            name="TaxCitizen"
+            id="taxcitizen_button"
+            value="Tax Citizen!"
+            onclick="tax_citizen()"
+            >
+
     <script src="game_main.js"></script>
     <script>
         //suspicion variable (suspicion = 0)
@@ -43,8 +51,9 @@
             suspicion -= num_lst3[Math.floor(Math.random() * num_lst3.length)];
         }
     }
+    document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks);
 }
-        
+       
     </script>
 </body>
 </html>
