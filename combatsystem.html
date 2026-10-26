@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Combat System</h2>
+
+<p>Player HP: <span id="playerHP">100</span></p>
+<p>CPU HP: <span id="cpuHP">100</span></p>
+
+<button onclick="playRound('Heavy Attack')">Heavy Attack</button>
+<button onclick="playRound('Light Attack')">Light Attack</button>
+<button onclick="playRound('Block')">Block</button>
+
+<p id="result"></p>
+
+<script>
+let playerHP = 100;
+let cpuHP = 100;
+
+function playRound(playerMove) {
+  const moves = ["Heavy Attack", "Light Attack", "Block"];
+  
+  let randomIndex = Math.floor(Math.random() * 3);
+  let cpuMove = moves[randomIndex];
+  
+  let resultText = "You chose " + playerMove + ". CPU chose " + cpuMove + ".<br>";
+
+  if (playerMove === cpuMove) {
+    resultText += "It is a draw. No damage taken.";
+  } else if (
+    (playerMove === "Heavy Attack" && cpuMove === "Block") ||
+    (playerMove === "Light Attack" && cpuMove === "Heavy Attack") ||
+    (playerMove === "Block" && cpuMove === "Light Attack")
+  ) {
+    resultText += "Attack successful!";
+    cpuHP -= 30;
+  } else {
+    resultText += "You were countered!";
+    playerHP -= 30;
+  }
+
+  // When player or CPU get to 0 hp, game ends.
+  if (playerHP <= 0 || cpuHP <= 0) {
+    if (playerHP <= 0) {
+      resultText += "<br><b>Game Over! The CPU defeated you. Resetting health...</b>";
+    } else {
+      resultText += "<br><b>Victory! You defeated the CPU. Resetting health...</b>";
+    }
+    
+    // Reset HP and game.
+    playerHP = 100;
+    cpuHP = 100;
+  }
+
+  document.getElementById("result").innerHTML = resultText;
+  document.getElementById("playerHP").innerHTML = playerHP;
+  document.getElementById("cpuHP").innerHTML = cpuHP;
+}
+</script>
+
+</body>
+</html>
