@@ -6,8 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Temporary UI -->
     <p>Player HP: <span id="playerHP">100</span></p>
     <p>CPU HP: <span id="cpuHP">100</span></p>
+
+    <!-- Options for moves -->
     <button onclick="playRound('Heavy Attack')">Heavy Attack</button>
     <button onclick="playRound('Light Attack')">Light Attack</button>
     <button onclick="playRound('Block')">Block</button>
@@ -25,6 +28,7 @@
       
       let resultText = "You chose " + playerMove + ". CPU chose " + cpuMove + ".<br>";
 
+      // Manage different cases of Player's move vs CPU's move
       if (playerMove === cpuMove) {
         resultText += "It is a draw. No damage taken.";
       } else if (
@@ -34,6 +38,7 @@
       ) {
         resultText += "Attack successful!";
         cpuHP -= 30;
+        playerHP += 10;
       } else {
         resultText += "You were countered!";
         playerHP -= 30;
@@ -52,6 +57,7 @@
         cpuHP = 100;
       }
 
+      // Display the results after any move
       document.getElementById("result").innerHTML = resultText;
       document.getElementById("playerHP").innerHTML = playerHP;
       document.getElementById("cpuHP").innerHTML = cpuHP;
