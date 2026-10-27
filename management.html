@@ -29,14 +29,15 @@
                 //If user wins combat
                     //The user get +10 baez blocks to their total
                     // suspicion -= (a random number chosen from the following list: [0,5,10,15,20])
-        num_lst1 = [1,2,4,5,8,10];
-        num_lst2 = [4,5,6,7,8,9,10];
-        num_lst3 = [0,5,10,15,20];
+        num_lst = [1,1,2,2,2,3,3,4,4];
         bool_lst = ['Game Over','Reduction'];
         function tax_citizen(combat_won){
+            if (time_interval !== 0){
+                num_lst = num_lst * time_interval;
+            }
             if (suspicion <= 20){
                 baez_bucks += 10;
-                suspicion += num_lst1[Math.floor(Math.random() * num_lst1.length)];
+                suspicion += num_lst[Math.floor(Math.random() * num_lst.length)];
             } else {
                 if (combat_won === false){
                     let bool_rand = bool_lst[Math.floor(Math.random() * bool_lst.length)];
@@ -44,11 +45,11 @@
                         game_over = true;
                         alert('Game Over!');
                     } else {
-                        baez_bucks -= num_lst2[Math.floor(Math.random() * num_lst2.length)];
+                        baez_bucks -= num_lst[Math.floor(Math.random() * num_lst.length)];
                     }
                 } else {
                     baez_bucks += 10;
-                    suspicion -= num_lst3[Math.floor(Math.random() * num_lst3.length)];
+                    suspicion -= num_lst[Math.floor(Math.random() * num_lst.length)];
                 }
             }
             document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks);
