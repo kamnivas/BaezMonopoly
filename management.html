@@ -6,13 +6,20 @@
     <title>Document</title>
 </head>
 <body>
-    <p id="show_bucks"></p>
+    <p id="show_bucks">Baez Blocks: 0</p>
+    <p id="show_suspicion">Suspicion: 0</p>
     <input type="button"
             name="TaxCitizen"
             id="taxcitizen_button"
-            value="Tax Citizen!"
-            onclick="tax_citizen()"
+            value="Tax Citizen! (Combat won)"
+            onclick="tax_citizen(true)"
             >
+    <input type="button"
+        name="TaxCitizen"
+        id="taxcitizen_button"
+        value="Tax Citizen! (Combat NOT won)"
+        onclick="tax_citizen(false)"
+        >
     <input type="button"
         name="TimeIntervalSimulator"
         id="interval_sim_button"
@@ -51,6 +58,7 @@
                 }
             }
             document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks); //display the number of baez_bucks
+            document.getElementById("show_suspicion").innerText = "Suspicion: "+ String(suspicion); //display the suspicion count
         }
        
     </script>
