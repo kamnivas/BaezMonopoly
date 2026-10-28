@@ -30,9 +30,12 @@
     <script src="game_main.js"></script>
     <script>
         //Variables from game_main.js:
-            //suspicion variable (suspicion = 0)
-            // baez blocks storage variable (baez_bucks = 10)
-    
+        baez_bucks = localStorage.getItem('baez_bucks') || 10;
+        suspicion = localStorage.getItem('suspicion') || 0;
+        time_interval = localStorage.getItem('time_interval') || 0;
+        game_over = localStorage.getItem('game_over') || false;
+        internet_fee = localStorage.getItem('internet_fee') || 1;
+        
         num_lst = [1,1,1,2,2,2,3,3,4,4];
         bool_lst = ['Game Over','Reduction'];
         function interval_sim(){
