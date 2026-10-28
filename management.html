@@ -66,6 +66,11 @@
             document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks); //display the number of baez_bucks
             document.getElementById("show_suspicion").innerText = "Suspicion: "+ String(suspicion); //display the suspicion count
         }
+        localStorage.setItem('baez_bucks',baez_bucks);
+        localStorage.setItem('suspicion',suspicion);
+        localStorage.setItem('internet_fee',internet_fee);
+        localStorage.setItem('game_over',game_over);
+        localStorage.setItem('time_interval',time_interval);
        
     </script>
 </body>
