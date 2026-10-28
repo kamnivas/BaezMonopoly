@@ -16,30 +16,22 @@
 
     <script src="game_main.js"></script>
     <script>
-        //suspicion variable (suspicion = 0)
-        // baez blocks storage variable (baez_bucks = 10)
-        //Every time the user taxes someone, they get a random number chosen from the list [1,2,4,5,8,10] added to their suspicion score
-
-        //When taxing, if suspicion <= 20 (NPC is NOT suspicious):
-            //Move on to tax the next person
-        //When taxing, if suspicion > 20 (NPC is suspicious)
-            //Combat (Rock-Paper-Scissors format)
-                //If user loses the combat:
-                    //Randomly choose b/w (Game Over) OR ((baez_bucks) -= (random number chosen from [4,5,6,7,8,9,10]))
-                //If user wins combat
-                    //The user get +10 baez blocks to their total
-                    // suspicion -= (a random number chosen from the following list: [0,5,10,15,20])
+        //Variables from game_main.js:
+            //suspicion variable (suspicion = 0)
+            // baez blocks storage variable (baez_bucks = 10)
+    
         num_lst = [1,1,1,2,2,2,3,3,4,4];
         bool_lst = ['Game Over','Reduction'];
         function tax_citizen(combat_won){
-            if (time_interval !== 0){
+           
+            if (time_interval !== 0){  //If the interval isn't 0, then multiply the num_lst by the interval (this ensures that the stakes are higher after each interval)
                 num_lst = num_lst * time_interval;
             }
-            if (suspicion <= 20){
+            if (suspicion <= 20){ //If there is not much suspicion, add baez blocks to the total and increase suspicion with an element of randomness
                 baez_bucks += 10;
                 suspicion += num_lst[Math.floor(Math.random() * num_lst.length)];
-            } else {
-                if (combat_won === false){
+            } else { //If there's suspicion, the user goes into combat
+                if (combat_won === false){ //If combat is lost, the fate of the user is randomly decided between GameOver! or a baez_bucks reduction
                     let bool_rand = bool_lst[Math.floor(Math.random() * bool_lst.length)];
                     if (bool_rand === 'Game Over'){
                         game_over = true;
@@ -47,12 +39,12 @@
                     } else {
                         baez_bucks -= num_lst[Math.floor(Math.random() * num_lst.length)];
                     }
-                } else {
+                } else { //If combat is won, add baez_bucks and decrease suspicion
                     baez_bucks += 10;
                     suspicion -= num_lst[Math.floor(Math.random() * num_lst.length)];
                 }
             }
-            document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks);
+            document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks); //display the number of baez_bucks
         }
        
     </script>
