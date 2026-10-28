@@ -35,6 +35,9 @@
     
         num_lst = [1,1,1,2,2,2,3,3,4,4];
         bool_lst = ['Game Over','Reduction'];
+        function interval_sim(){
+            time_interval += 1
+        }
         function tax_citizen(combat_won){
            
             if (time_interval !== 0){  //If the interval isn't 0, then multiply the num_lst by the interval (this ensures that the stakes are higher after each interval)
