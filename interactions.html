@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controllable Character Game</title>
+    <title>BallzzzzMazterz</title>
     <style>
         body {
             background-image: url("assets/background-1.png");
@@ -18,8 +18,9 @@
 
         #character {
             position: absolute;
-            top: 200px;
-            left: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 64px;
             height: 64px;
         }
@@ -27,23 +28,22 @@
 </head>
 <body>
     <img id="character" src="assets/player-sprite.png" alt="Player Character">
+
     <script>
-        const character = document.getElementById("character");
-        let x = 200;
-        let y = 200;
+        let mapX = 0;
+        let mapY = 0;
         const speed = 10;
         document.addEventListener("keydown", (event) => {
             if (event.key === "ArrowRight" || event.key === "d") {
-                x += speed;
+                mapX -= speed;
             } else if (event.key === "ArrowLeft" || event.key === "a") {
-                x -= speed;
+                mapX += speed;
             } else if (event.key === "ArrowDown" || event.key === "s") {
-                y += speed;
+                mapY -= speed;
             } else if (event.key === "ArrowUp" || event.key === "w") {
-                y -= speed;
+                mapY += speed;
             }
-            character.style.left = x + "px";
-            character.style.top = y + "px";
+            document.body.style.backgroundPosition = mapX + "px " + mapY + "px";
         });
     </script>
 
