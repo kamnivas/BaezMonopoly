@@ -27,7 +27,8 @@ A post apocalyptic RPG where Mr. Baez has a monopoly over all internet access.
 - [ ] Graphics
 - **May change the combat system to something more complex**
 
-## Level System
+## Interactons
+- [X] Map and Character
 - [ ] Branching dialogue options
 - [ ] Time system (to deduct player’s Baez bucks, coordinate with Baez Buck Management programmer)
 - [ ] Entering combat (may have to coordinate with Combat System programmer)
