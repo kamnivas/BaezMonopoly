@@ -1,5 +1,10 @@
-var baez_bucks = 10;
-var suspicion = 0;
-var internet_fee = 1;
-var game_over = false;
-var time_interval = 0;
+// var baez_bucks = 10;
+localStorage.setItem('baez_bucks',10);
+//var suspicion = 0;
+localStorage.setItem('suspicion',0);
+//var internet_fee = 1;
+localStorage.setItem('internet_fee',1);
+//var game_over = false;
+localStorage.setItem('game_over',false);
+//var time_interval = 0;
+localStorage.setItem('time_interval',0);
