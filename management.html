@@ -40,11 +40,12 @@
         bool_lst = ['Game Over','Reduction'];
         function interval_sim(){
             time_interval += 1
+            localStorage.setItem('time_interval',time_interval);
         }
         function tax_citizen(combat_won){
            
             if (time_interval !== 0){  //If the interval isn't 0, then multiply the num_lst by the interval (this ensures that the stakes are higher after each interval)
-                num_lst = num_lst * time_interval;
+                num_lst = [x * time_interval for x in num_lst];
             }
             if (suspicion <= 20){ //If there is not much suspicion, add baez blocks to the total and increase suspicion with an element of randomness
                 baez_bucks += 10;
@@ -63,14 +64,16 @@
                     suspicion -= num_lst[Math.floor(Math.random() * num_lst.length)];
                 }
             }
-            document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks); //display the number of baez_bucks
-            document.getElementById("show_suspicion").innerText = "Suspicion: "+ String(suspicion); //display the suspicion count
+            
+            localStorage.setItem('baez_bucks',baez_bucks);
+            localStorage.setItem('suspicion',suspicion);
+            localStorage.setItem('internet_fee',internet_fee);
+            localStorage.setItem('game_over',game_over);
+            localStorage.setItem('time_interval',time_interval);
         }
-        localStorage.setItem('baez_bucks',baez_bucks);
-        localStorage.setItem('suspicion',suspicion);
-        localStorage.setItem('internet_fee',internet_fee);
-        localStorage.setItem('game_over',game_over);
-        localStorage.setItem('time_interval',time_interval);
+        document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks); //display the number of baez_bucks
+        document.getElementById("show_suspicion").innerText = "Suspicion: "+ String(suspicion); //display the suspicion count
+
        
     </script>
 </body>
