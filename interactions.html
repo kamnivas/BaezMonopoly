@@ -25,15 +25,34 @@
             width: 64px;
             height: 64px;
         }
+        #shark {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
     <img id="character" src="assets/player-sprite.png" alt="Player Character">
+    <img id="shark" src="assets/shark-map.png" alt="Shark">
 
     <script>
         let mapX = 0;
         let mapY = 0;
         const speed = 10;
+
+        const pondX = 200; const pondY = 150;
+        const shark = document.getElementById("shark");
+        
+        function updatePosition() {
+            const screenX = (window.innerWidth / 2) + pondX + mapX;
+            const screenY = (window.innerHeight / 2) + pondY + mapY;
+            shark.style.left = screenX + "px";
+            shark.style.top = screenY + "px";
+        }
+
         document.addEventListener("keydown", (event) => {
             if (event.key === "ArrowRight" || event.key === "d") {
                 mapX -= speed;
@@ -45,6 +64,7 @@
                 mapY += speed;
             }
             document.body.style.backgroundPosition = mapX + "px " + mapY + "px";
+            updatePosition()
         });
     </script>
 
