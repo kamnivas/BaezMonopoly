@@ -70,10 +70,12 @@
             shark.style.top = screenY + "px";
         }
             
-        function updateDialogue() {
+        function updateUI() {
             const dialogueBox = document.getElementById("interact");
             const playerRect = character.getBoundingClientRect();
             const sharkRect = shark.getBoundingClientRect();
+
+            // Colision detection
             const isColliding = (
             playerRect.left < sharkRect.right &&
             playerRect.right > sharkRect.left &&
@@ -81,6 +83,7 @@
             playerRect.bottom > sharkRect.top
             ); 
 
+            // Ensure you can only enter combat when in range of the enemy
             if (isColliding) {
                 canEnterCombat = true; dialogueBox.style.display = "block";
             }
@@ -106,7 +109,7 @@
             }
             document.body.style.backgroundPosition = mapX + "px " + mapY + "px";
             updatePosition();
-            updateDialogue();
+            updateUI();
         });
     </script>
 
