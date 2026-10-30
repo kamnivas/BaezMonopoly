@@ -33,7 +33,7 @@
         let baez_bucks = Number(localStorage.getItem('baez_bucks')) || 10;
         let suspicion = Number(localStorage.getItem('suspicion')) || 0;
         let time_interval = Number(localStorage.getItem('time_interval')) || 0;
-        let game_over = localStorage.getItem('game_over') || false;
+        let game_over = (localStorage.getItem('game_over') === 'true') || false;
         let internet_fee = Number(localStorage.getItem('internet_fee')) || 1;
         
         num_lst = [1,1,1,2,2,2,3,3,4,4];
