@@ -31,17 +31,34 @@
             height: 48px;
             pointer-events: none;
         }
+        #interact {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform:
+            translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-family: sans-serif;
+            font-size: 16px;
+            display: none;
+            pointer-events: none;
+        }
 
     </style>
 </head>
 <body>
     <img id="character" src="assets/player-sprite.png" alt="Player Character">
     <img id="shark" src="assets/shark-map.png" alt="Shark">
+    <div id="interact">F to enter combat</div>
 
     <script>
         let mapX = 0;
         let mapY = 0;
         const speed = 10;
+        let canEnterCombat = false;
 
         const pondX = 200; const pondY = 150;
         const shark = document.getElementById("shark");
@@ -51,6 +68,25 @@
             const screenY = (window.innerHeight / 2) + pondY + mapY;
             shark.style.left = screenX + "px";
             shark.style.top = screenY + "px";
+        }
+            
+        function updateDialogue() {
+            const dialogueBox = document.getElementById("interact");
+            const playerRect = character.getBoundingClientRect();
+            const sharkRect = shark.getBoundingClientRect();
+            const isColliding = (
+            playerRect.left < sharkRect.right &&
+            playerRect.right > sharkRect.left &&
+            playerRect.top < sharkRect.bottom &&
+            playerRect.bottom > sharkRect.top
+            ); 
+
+            if (isColliding) {
+                canEnterCombat = true; dialogueBox.style.display = "block";
+            }
+            else {
+                canEnterCombat = false; dialogueBox.style.display = "none";
+            }
         }
 
         document.addEventListener("keydown", (event) => {
@@ -63,8 +99,14 @@
             } else if (event.key === "ArrowUp" || event.key === "w") {
                 mapY += speed;
             }
+
+            if ((event.key === "f" || event.key === "F") && canEnterCombat) {
+                console.log("Entering combat!");
+                window.location.href = "combat.html";
+            }
             document.body.style.backgroundPosition = mapX + "px " + mapY + "px";
-            updatePosition()
+            updatePosition();
+            updateDialogue();
         });
     </script>
 
