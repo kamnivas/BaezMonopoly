@@ -29,6 +29,12 @@
 
     <script src="game_main.js"></script>
     <script>
+        //Variables from game_main.js:
+        let baez_bucks = Number(localStorage.getItem('baez_bucks') ?? 10);
+        let suspicion = Number(localStorage.getItem('suspicion') ?? 0);
+        let time_interval = Number(localStorage.getItem('time_interval') ?? 0);
+        let game_over = (localStorage.getItem('game_over') === 'true');
+        let internet_fee = Number(localStorage.getItem('internet_fee') ?? 1);
         function updateUIandSave() {
             document.getElementById("show_bucks").innerText = "Baez Blocks: "+baez_bucks;
             document.getElementById("show_suspicion").innerText = "Suspicion: "+suspicion;
@@ -38,28 +44,22 @@
             localStorage.setItem('game_over', game_over);
             localStorage.setItem('time_interval', time_interval);
         }
-        //Variables from game_main.js:
-        let baez_bucks = Number(localStorage.getItem('baez_bucks') ?? 10);
-        let suspicion = Number(localStorage.getItem('suspicion') ?? 0);
-        let time_interval = Number(localStorage.getItem('time_interval') ?? 0);
-        let game_over = (localStorage.getItem('game_over') === 'true');
-        let internet_fee = Number(localStorage.getItem('internet_fee') ?? 1);
+
         
-        const base_num_lst = [7-10];
+        const base_num_lst = [1,1,1,2,2,2,3,3,4,4];
         bool_lst = ['Game Over','Reduction'];
-        updateUIAndSave(); 
+        updateUIandSave(); 
         function interval_sim(){
             time_interval += 1
-            localStorage.setItem('time_interval',time_interval);
+            updateUIandSave(); 
         }
         function tax_citizen(combat_won){
             let multiplier = (time_interval !== 0) ? time_interval : 1;
             let current_num_lst = base_num_lst.map(x => x * multiplier);
             let random_val = current_num_lst[Math.floor(Math.random() * current_num_lst.length)];
-            }
             if (suspicion <= 20){ //If there is not much suspicion, add baez blocks to the total and increase suspicion with an element of randomness
                 baez_bucks += 10;
-                suspicion += num_lst[Math.floor(Math.random() * num_lst.length)];
+                suspicion += random_val;
             } else { //If there's suspicion, the user goes into combat
                 if (combat_won === false){ //If combat is lost, the fate of the user is randomly decided between GameOver! or a baez_bucks reduction
                     let bool_rand = bool_lst[Math.floor(Math.random() * bool_lst.length)];
@@ -67,22 +67,16 @@
                         game_over = true;
                         alert('Game Over!');
                     } else {
-                        baez_bucks -= num_lst[Math.floor(Math.random() * num_lst.length)];
+                        baez_bucks -= random_val;
                     }
                 } else { //If combat is won, add baez_bucks and decrease suspicion
                     baez_bucks += 10;
-                    suspicion -= num_lst[Math.floor(Math.random() * num_lst.length)];
+                    suspicion -= random_val;
                 }
             }
-            
-            localStorage.setItem('baez_bucks',baez_bucks);
-            localStorage.setItem('suspicion',suspicion);
-            localStorage.setItem('internet_fee',internet_fee);
-            localStorage.setItem('game_over',game_over);
-            localStorage.setItem('time_interval',time_interval);
+            updateUIandSave(); 
         }
-        document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks); //display the number of baez_bucks
-        document.getElementById("show_suspicion").innerText = "Suspicion: "+ String(suspicion); //display the suspicion count
+
 
        
     </script>
