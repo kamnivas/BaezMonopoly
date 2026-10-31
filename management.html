@@ -8,6 +8,7 @@
 <body>
     <p id="show_bucks">Baez Blocks: 10</p>
     <p id="show_suspicion">Suspicion: 0</p>
+    <p id="show_time_interval">Time Interval: 0</p>
     <input type="button"
             name="TaxCitizenWon"
             id="taxcitizen_button_won"
@@ -38,6 +39,7 @@
         function updateUIandSave() {
             document.getElementById("show_bucks").innerText = "Baez Blocks: "+baez_bucks;
             document.getElementById("show_suspicion").innerText = "Suspicion: "+suspicion;
+            document.getElementById("show_time_interval").innerText = "Time Interval: "+time_interval;
             localStorage.setItem('baez_bucks', baez_bucks);
             localStorage.setItem('suspicion', suspicion);
             localStorage.setItem('internet_fee', internet_fee);
