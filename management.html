@@ -29,6 +29,15 @@
 
     <script src="game_main.js"></script>
     <script>
+        function updateUIandSave() {
+            document.getElementById("show_bucks").innerText = "Baez Blocks: "+baez_bucks;
+            document.getElementById("show_suspicion").innerText = "Suspicion: "+suspicion;
+            localStorage.setItem('baez_bucks', baez_bucks);
+            localStorage.setItem('suspicion', suspicion);
+            localStorage.setItem('internet_fee', internet_fee);
+            localStorage.setItem('game_over', game_over);
+            localStorage.setItem('time_interval', time_interval);
+        }
         //Variables from game_main.js:
         let baez_bucks = Number(localStorage.getItem('baez_bucks') ?? 10);
         let suspicion = Number(localStorage.getItem('suspicion') ?? 0);
@@ -36,16 +45,17 @@
         let game_over = (localStorage.getItem('game_over') === 'true');
         let internet_fee = Number(localStorage.getItem('internet_fee') ?? 1);
         
-        num_lst = [1,1,1,2,2,2,3,3,4,4];
+        const base_num_lst = [7-10];
         bool_lst = ['Game Over','Reduction'];
+        updateUIAndSave(); 
         function interval_sim(){
             time_interval += 1
             localStorage.setItem('time_interval',time_interval);
         }
         function tax_citizen(combat_won){
-           
-            if (time_interval !== 0){  //If the interval isn't 0, then multiply the num_lst by the interval (this ensures that the stakes are higher after each interval)
-                num_lst = num_lst.map(x => x * time_interval);
+            let multiplier = (time_interval !== 0) ? time_interval : 1;
+            let current_num_lst = base_num_lst.map(x => x * multiplier);
+            let random_val = current_num_lst[Math.floor(Math.random() * current_num_lst.length)];
             }
             if (suspicion <= 20){ //If there is not much suspicion, add baez blocks to the total and increase suspicion with an element of randomness
                 baez_bucks += 10;
