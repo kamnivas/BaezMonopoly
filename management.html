@@ -45,7 +45,7 @@
         function tax_citizen(combat_won){
            
             if (time_interval !== 0){  //If the interval isn't 0, then multiply the num_lst by the interval (this ensures that the stakes are higher after each interval)
-                num_lst = [x * time_interval for x in num_lst];
+                num_lst = num_lst.map(x => x * time_interval);
             }
             if (suspicion <= 20){ //If there is not much suspicion, add baez blocks to the total and increase suspicion with an element of randomness
                 baez_bucks += 10;
