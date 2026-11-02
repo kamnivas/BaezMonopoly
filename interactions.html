@@ -35,8 +35,7 @@
             position: absolute;
             bottom: 30px;
             left: 50%;
-            transform:
-            translateX(-50%);
+            transform: translateX(-50%);
             background-color: rgba(0, 0, 0, 0.85);
             color: #ffffff;
             padding: 12px 24px;
@@ -57,11 +56,53 @@
     <script>
         let mapX = 0;
         let mapY = 0;
-        const speed = 10;
+        // Speed adjusted for frame-by-frame animation loop updates
+        const speed = 5; 
         let canEnterCombat = false;
 
-        const pondX = 200; const pondY = 150;
+        const pondX = 200; 
+        const pondY = 150;
+
+        // Retrieve element references from the DOM
+        const character = document.getElementById("character");
         const shark = document.getElementById("shark");
+        const dialogueBox = document.getElementById("interact");
+
+        // Object tracking currently held keys
+        const keysPressed = {};
+
+        // Track key presses
+        document.addEventListener("keydown", (event) => {
+            keysPressed[event.key] = true;
+
+            // Combat redirect when pressing F inside range
+            if ((event.key === "f" || event.key === "F") && canEnterCombat) {
+                window.location.href = "combat.html";
+            }
+        });
+
+        // Track key releases
+        document.addEventListener("keyup", (event) => {
+            keysPressed[event.key] = false;
+        });
+
+        function updateMovement() {
+            // Evaluate active keys using if statements and logical OR operators
+            if (keysPressed["ArrowRight"] || keysPressed["d"] || keysPressed["D"]) {
+                mapX -= speed;
+            }
+            if (keysPressed["ArrowLeft"] || keysPressed["a"] || keysPressed["A"]) {
+                mapX += speed;
+            }
+            if (keysPressed["ArrowDown"] || keysPressed["s"] || keysPressed["S"]) {
+                mapY -= speed;
+            }
+            if (keysPressed["ArrowUp"] || keysPressed["w"] || keysPressed["W"]) {
+                mapY += speed;
+            }
+
+            document.body.style.backgroundPosition = mapX + "px " + mapY + "px";
+        }
         
         function updatePosition() {
             const screenX = (window.innerWidth / 2) + pondX + mapX;
@@ -71,46 +112,37 @@
         }
             
         function updateUI() {
-            const dialogueBox = document.getElementById("interact");
             const playerRect = character.getBoundingClientRect();
             const sharkRect = shark.getBoundingClientRect();
 
-            // Colision detection
+            // Collision detection checking overlapping bounds
             const isColliding = (
-            playerRect.left < sharkRect.right &&
-            playerRect.right > sharkRect.left &&
-            playerRect.top < sharkRect.bottom &&
-            playerRect.bottom > sharkRect.top
+                playerRect.left < sharkRect.right &&
+                playerRect.right > sharkRect.left &&
+                playerRect.top < sharkRect.bottom &&
+                playerRect.bottom > sharkRect.top
             ); 
 
-            // Ensure you can only enter combat when in range of the enemy
+            // Show or hide dialogue box based on collision state
             if (isColliding) {
-                canEnterCombat = true; dialogueBox.style.display = "block";
-            }
-            else {
-                canEnterCombat = false; dialogueBox.style.display = "none";
+                canEnterCombat = true; 
+                dialogueBox.style.display = "block";
+            } else {
+                canEnterCombat = false; 
+                dialogueBox.style.display = "none";
             }
         }
 
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowRight" || event.key === "d") {
-                mapX -= speed;
-            } else if (event.key === "ArrowLeft" || event.key === "a") {
-                mapX += speed;
-            } else if (event.key === "ArrowDown" || event.key === "s") {
-                mapY -= speed;
-            } else if (event.key === "ArrowUp" || event.key === "w") {
-                mapY += speed;
-            }
-
-            if ((event.key === "f" || event.key === "F") && canEnterCombat) {
-                window.location.href = "combat.html";
-            }
-            document.body.style.backgroundPosition = mapX + "px " + mapY + "px";
+        // Continuous game loop
+        function gameLoop() {
+            updateMovement();
             updatePosition();
             updateUI();
-        });
-    </script>
+            requestAnimationFrame(gameLoop);
+        }
 
+        // Start the loop
+        gameLoop();
+    </script>
 </body>
 </html>
