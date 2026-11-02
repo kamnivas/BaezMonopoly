@@ -10,17 +10,11 @@
     <p id="show_suspicion">Suspicion: 0</p>
     <p id="show_time_interval">Time Interval: 0</p>
     <input type="button"
-            name="TaxCitizenWon"
-            id="taxcitizen_button_won"
-            value="Tax Citizen! (Combat won)"
-            onclick="tax_citizen(true)"
+            name="TaxCitizen"
+            id="taxcitizen_button"
+            value="Tax Citizen!"
+            onclick="tax_citizen()"
             >
-    <input type="button"
-        name="TaxCitizenLost"
-        id="taxcitizen_button_lost"
-        value="Tax Citizen! (Combat NOT won)"
-        onclick="tax_citizen(false)"
-        >
     <input type="button"
         name="TimeIntervalSimulator"
         id="interval_sim_button"
@@ -36,6 +30,7 @@
         let time_interval = Number(localStorage.getItem('time_interval') ?? 0);
         let game_over = (localStorage.getItem('game_over') === 'true');
         let internet_fee = Number(localStorage.getItem('internet_fee') ?? 1);
+        let combat_won = (localStorage.getItem('combat_won') === 'true');
         function updateUIandSave() {
             document.getElementById("show_bucks").innerText = "Baez Blocks: "+baez_bucks;
             document.getElementById("show_suspicion").innerText = "Suspicion: "+suspicion;
@@ -55,7 +50,7 @@
             time_interval += 1
             updateUIandSave(); 
         }
-        function tax_citizen(combat_won){
+        function tax_citizen(){
             let multiplier = (time_interval !== 0) ? time_interval : 1;
             let current_num_lst = base_num_lst.map(x => x * multiplier);
             let random_val = current_num_lst[Math.floor(Math.random() * current_num_lst.length)];
