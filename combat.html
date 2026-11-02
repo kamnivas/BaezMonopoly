@@ -45,17 +45,16 @@
         playerHP -= 30;
       }
 
-      // When player or CPU get to 0 hp, game ends.
+        // When player or CPU get to 0 hp, game ends.
       if (playerHP <= 0 || cpuHP <= 0) {
         if (playerHP <= 0) {
-          resultText += "<br><b>Game Over! The CPU defeated you. Resetting health...</b>";
+          alert("Game Over! The CPU defeated you.");
         } else {
-          resultText += "<br><b>Victory! You defeated the CPU. Resetting health...</b>";
+          alert("Victory! You defeated the CPU.");
         }
         
-        // Reset HP and game.
-        playerHP = 100;
-        cpuHP = 100;
+        // Going back to main game
+        window.location.href = "interactions.html";
       }
 
       // Display the results after any move
