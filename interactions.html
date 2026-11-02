@@ -78,6 +78,7 @@
             // Combat redirect when pressing F inside range
             if ((event.key === "f" || event.key === "F") && canEnterCombat) {
                 window.location.href = "combat.html";
+                localStorage.setItem('combat_won', false)
             }
         });
 
