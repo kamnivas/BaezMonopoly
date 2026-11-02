@@ -50,12 +50,10 @@
       if (playerHP <= 0 || cpuHP <= 0) {
         if (playerHP <= 0) {
           alert("Game Over! The CPU defeated you.");
-          // Probably does not work
-          game_over = true
+          localStorage.setItem('game_over', true)
         } else {
           alert("Victory! You defeated the CPU.");
-          // Probably does not work
-          combat_won = true
+          localStorage.setItem('combat_won', true);
         }
         
         // Going back to main game
