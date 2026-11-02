@@ -8,6 +8,7 @@
 <body>
     <p id="show_bucks">Baez Blocks: 10</p>
     <p id="show_suspicion">Suspicion: 0</p>
+    <p id="show_time_interval">Time Interval: 0</p>
     <input type="button"
             name="TaxCitizenWon"
             id="taxcitizen_button_won"
@@ -35,21 +36,32 @@
         let time_interval = Number(localStorage.getItem('time_interval') ?? 0);
         let game_over = (localStorage.getItem('game_over') === 'true');
         let internet_fee = Number(localStorage.getItem('internet_fee') ?? 1);
+        function updateUIandSave() {
+            document.getElementById("show_bucks").innerText = "Baez Blocks: "+baez_bucks;
+            document.getElementById("show_suspicion").innerText = "Suspicion: "+suspicion;
+            document.getElementById("show_time_interval").innerText = "Time Interval: "+time_interval;
+            localStorage.setItem('baez_bucks', baez_bucks);
+            localStorage.setItem('suspicion', suspicion);
+            localStorage.setItem('internet_fee', internet_fee);
+            localStorage.setItem('game_over', game_over);
+            localStorage.setItem('time_interval', time_interval);
+        }
+
         
-        num_lst = [1,1,1,2,2,2,3,3,4,4];
+        const base_num_lst = [1,1,1,2,2,2,3,3,4,4];
         bool_lst = ['Game Over','Reduction'];
+        updateUIandSave(); 
         function interval_sim(){
             time_interval += 1
-            localStorage.setItem('time_interval',time_interval);
+            updateUIandSave(); 
         }
         function tax_citizen(combat_won){
-           
-            if (time_interval !== 0){  //If the interval isn't 0, then multiply the num_lst by the interval (this ensures that the stakes are higher after each interval)
-                num_lst = [x * time_interval for x in num_lst];
-            }
+            let multiplier = (time_interval !== 0) ? time_interval : 1;
+            let current_num_lst = base_num_lst.map(x => x * multiplier);
+            let random_val = current_num_lst[Math.floor(Math.random() * current_num_lst.length)];
             if (suspicion <= 20){ //If there is not much suspicion, add baez blocks to the total and increase suspicion with an element of randomness
                 baez_bucks += 10;
-                suspicion += num_lst[Math.floor(Math.random() * num_lst.length)];
+                suspicion += random_val;
             } else { //If there's suspicion, the user goes into combat
                 if (combat_won === false){ //If combat is lost, the fate of the user is randomly decided between GameOver! or a baez_bucks reduction
                     let bool_rand = bool_lst[Math.floor(Math.random() * bool_lst.length)];
@@ -57,22 +69,16 @@
                         game_over = true;
                         alert('Game Over!');
                     } else {
-                        baez_bucks -= num_lst[Math.floor(Math.random() * num_lst.length)];
+                        baez_bucks -= random_val;
                     }
                 } else { //If combat is won, add baez_bucks and decrease suspicion
                     baez_bucks += 10;
-                    suspicion -= num_lst[Math.floor(Math.random() * num_lst.length)];
+                    suspicion -= random_val;
                 }
             }
-            
-            localStorage.setItem('baez_bucks',baez_bucks);
-            localStorage.setItem('suspicion',suspicion);
-            localStorage.setItem('internet_fee',internet_fee);
-            localStorage.setItem('game_over',game_over);
-            localStorage.setItem('time_interval',time_interval);
+            updateUIandSave(); 
         }
-        document.getElementById("show_bucks").innerText = "Baez Blocks: "+ String(baez_bucks); //display the number of baez_bucks
-        document.getElementById("show_suspicion").innerText = "Suspicion: "+ String(suspicion); //display the suspicion count
+
 
        
     </script>
