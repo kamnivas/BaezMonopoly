@@ -30,21 +30,39 @@
       
       let resultText = "You chose " + playerMove + ". CPU chose " + cpuMove + ".<br>";
 
-      // Manage different cases of Player's move vs CPU's move
-      if (playerMove === cpuMove) {
-        resultText += "It is a draw. No damage taken.";
-      } else if (
-        (playerMove === "Heavy Attack" && cpuMove === "Block") ||
-        (playerMove === "Light Attack" && cpuMove === "Heavy Attack") ||
-        (playerMove === "Block" && cpuMove === "Light Attack")
-      ) {
-        resultText += "Attack successful!";
-        cpuHP -= 30;
-        playerHP += 10;
-      } else {
-        resultText += "You were countered!";
-        playerHP -= 30;
-      }
+     // If the moves are the same(draw)
+    if (playerMove === "Heavy Attack" && cpuMove === "Heavy Attack") {
+    resultText += "It is a draw. No damage taken.";
+    } else if (playerMove === "Light Attack" && cpuMove === "Light Attack") {
+    resultText += "It is a draw. No damage taken.";
+    } else if (playerMove === "Block" && cpuMove === "Block") {
+    resultText += "It is a draw. No damage taken.";
+
+    // Player's attack is successful
+    } else if (playerMove === "Heavy Attack" && cpuMove === "Block") {
+    resultText += "Attack successful!";
+    cpuHP -= 30;
+    playerHP += 10;
+    } else if (playerMove === "Light Attack" && cpuMove === "Heavy Attack") {
+    resultText += "Attack successful!";
+    cpuHP -= 30;
+    playerHP += 10;
+    } else if (playerMove === "Block" && cpuMove === "Light Attack") {
+    resultText += "Attack successful!";
+    cpuHP -= 30;
+    playerHP += 10;
+
+    // Player gets countered
+    } else if (playerMove === "Heavy Attack" && cpuMove === "Light Attack") {
+    resultText += "You were countered!";
+    playerHP -= 30;
+    } else if (playerMove === "Light Attack" && cpuMove === "Block") {
+    resultText += "You were countered!";
+    playerHP -= 30;
+    } else if (playerMove === "Block" && cpuMove === "Heavy Attack") {
+    resultText += "You were countered!";
+    playerHP -= 30;
+    }
 
         // When player or CPU get to 0 hp, game ends.
       if (playerHP <= 0 || cpuHP <= 0) {
